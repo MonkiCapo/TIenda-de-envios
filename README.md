@@ -1,5 +1,5 @@
 # TIenda-de-envios
-
+```mermaid
 erDiagram
     Cliente {
         INT_UNS           ID_Cliente PK
@@ -80,3 +80,4 @@ erDiagram
      Carrito ||--o{ ProductoCarrito : ""
     Orden ||--|| Envio : ""
     Carrito ||--|| Orden : ""
+```
