@@ -224,4 +224,118 @@ BEGIN
     JOIN Orden O ON E.ID_Orden = O.ID_Orden
     WHERE E.ID_Envio = unID_Envio;
 END;
-``` 
+```
+
+# Triggers
+
+``` SQL
+CREATE TRIGGER aftUpdCarrito_Pagado AFTER UPDATE ON Carrito FOR EACH ROW
+BEGIN
+    IF(old.Pagado != new.Pagado) THEN
+        IF EXISTS(SELECT * FROM ProductoCarrito WHERE ID_Carrito=old.ID_Carrito) THEN
+           IF(old.Total > (SELECT Saldo FROM Billetera WHERE ID_Billetera = old.ID_Billetera)) THEN
+                SIGNAL SQLSTATE '45000'
+                SET MESSAGE_TEXT = 'Saldo insuficiente para pagar el carrito.';
+            ELSE
+                INSERT INTO Orden (Emision, Total, ID_Carrito)
+                VALUES (CURDATE(), old.Total, old.ID_Carrito);
+            END IF;
+        ELSE
+            SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'El carrito no tiene productos para pagar.';
+        END IF;
+    
+    END IF;
+END;
+-- Luego de confirmarse el pago, reducir stock de cada producto del carrito.
+CREATE TRIGGER aftInsertOrden AFTER INSERT ON Orden FOR EACH ROW
+BEGIN
+    CALL CursorAftInsertOrden(new.ID_Carrito);
+
+    SELECT ID_Billetera INTO @billetera
+    FROM Carrito
+    WHERE ID_Carrito = new.ID_Carrito;
+
+    UPDATE Billetera
+    SET Saldo = Saldo - new.Total
+    WHERE ID_Billetera = @billetera;
+END;
+
+-- Según la cantidad agregada al carrito, agarrar el 'precioUnitario' y sumarlo al 'total' de la tabla Carrito.
+CREATE TRIGGER aftInsProductoCarrito AFTER INSERT ON ProductoCarrito FOR EACH ROW
+BEGIN
+    UPDATE Carrito
+    SET Total = Total + new.precioUnitario
+    WHERE ID_Carrito=new.ID_Carrito;
+END;
+
+-- Trigger que actualiza el stock al eliminar un producto del carrito.
+CREATE TRIGGER aftDeleteProductoCarrito AFTER DELETE ON ProductoCarrito FOR EACH ROW
+BEGIN
+    UPDATE Producto
+    SET Stock = Stock - old.Cantidad
+    WHERE ID_Producto = old.ID_Producto;
+END;
+
+-- Trigger que actualiza el promedio de estrellas al insertar un nuevo comentario.
+CREATE TRIGGER aftInsertComentario AFTER INSERT ON Comentario FOR EACH ROW
+BEGIN
+    CALL ActualizarPromedioEstrellas(new.ID_Producto);
+END;
+
+-- Permitir la inserción de comentarios solo si el envío del producto ha sido entregado.
+CREATE TRIGGER befInsertComentario BEFORE INSERT ON Comentario FOR EACH ROW
+BEGIN
+    DECLARE EstadoEnvio VARCHAR(45);
+
+    SELECT E.Estado INTO EstadoEnvio
+    FROM Envio E
+    JOIN Orden O ON E.ID_Orden = O.ID_Orden
+    JOIN Carrito C ON O.ID_Carrito = C.ID_Carrito
+    JOIN ProductoCarrito PC ON C.ID_Carrito = PC.ID_Carrito
+    WHERE PC.ID_Producto = new.ID_Producto
+    AND C.ID_Cliente = new.ID_Cliente;
+
+    IF EstadoEnvio != 'Entregado' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El producto no ha sido entregado, no se puede comentar.';
+    END IF;
+END;
+
+```
+
+# Funciones almacenadas
+
+``` SQL
+-- Esta funcion me permite obtener el saldo de un cliente en su billetera.
+
+CREATE FUNCTION ObtenerSaldoCliente(unID_Cliente INT UNSIGNED)
+RETURNS DECIMAL(10,2)
+BEGIN
+    DECLARE total DECIMAL(10,2);
+    SELECT Saldo INTO total
+    FROM Billetera
+    WHERE ID_Cliente = unID_Cliente;
+    RETURN total;
+END;
+
+--Esta funcion me permite saber la cantidad de comentarios que un cliente ha realizado.
+CREATE FUNCTION ProductosComentadosPorCliente(unID_Cliente INT UNSIGNED)
+RETURNS INT
+BEGIN
+    DECLARE total INT;
+    SELECT COUNT(*) INTO total
+    FROM Comentario
+    WHERE ID_Cliente = unID_Cliente;
+    RETURN total;
+END;
+
+CREATE FUNCTION StockTotalPorCategoria(unID_Categoria INT)
+RETURNS INT
+BEGIN
+    DECLARE total INT;
+    SELECT SUM(stock) INTO total
+    FROM Producto
+    WHERE ID_Categoria = unID_Categoria;
+    RETURN total;
+END;
+```
