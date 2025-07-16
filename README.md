@@ -83,7 +83,7 @@ erDiagram
 ```
 ## Procedimientos
 
-Procedimientos encargados de dar de alta a las tablas
+Procedimientos almacenados
 
 ``` SQL
 CREATE PROCEDURE InsBancoDigital (nombre VARCHAR(45), tipo VARCHAR(45))
@@ -137,3 +137,91 @@ BEGIN
 END;
 
 ```
+
+Más prodecimientos
+
+``` SQL
+CREATE PROCEDURE MostrarProductos_Y_su_Stock_De (unIdCategoria INT)
+BEGIN
+    SELECT ID_Producto, Nombre, Stock
+    FROM Producto
+    WHERE ID_Categoria=unIdCategoria;
+END;
+
+-- Actualizar Stock
+
+CREATE PROCEDURE StockReducir (unID_Producto INT, unStock INT UNSIGNED)
+BEGIN
+    SELECT stock INTO @stock
+    FROM Producto 
+    WHERE ID_Producto = unID_Producto;
+
+    IF @stock >= unStock THEN
+        UPDATE Producto
+        SET stock = stock - unStock
+        WHERE ID_Producto = unID_Producto;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Stock insuficiente.';
+    END IF;
+END;
+CREATE PROCEDURE StockAumentar (unID_Producto INT, unStock INT UNSIGNED)
+BEGIN
+    UPDATE Producto
+    SET stock = stock + unStock
+    WHERE ID_Producto = unID_Producto;
+END;
+
+-- Cursor que recorre los productos pertenecientes al carrito y reduce el stock mediante el procedure StockReducir.
+
+CREATE PROCEDURE CursorAftInsertOrden( unID_Carrito INT )
+BEGIN
+    DECLARE errorStock BOOLEAN DEFAULT FALSE;
+    DECLARE done BOOLEAN DEFAULT FALSE;
+    DECLARE v_idProducto INT;
+    DECLARE v_Cantidad SMALLINT;
+
+    DECLARE cursor1 CURSOR FOR SELECT ID_Producto, Cantidad
+                               FROM ProductoCarrito
+                               WHERE ID_Carrito = unID_Carrito;
+
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+    DECLARE CONTINUE HANDLER FOR SQLSTATE '45000' SET errorStock=TRUE;
+
+    OPEN cursor1;
+        lector : LOOP
+            FETCH cursor1 INTO v_idProducto, v_Cantidad;
+            IF done THEN
+                LEAVE lector;
+            END IF;
+            SET errorStock = FALSE;
+            CALL StockReducir(v_idProducto, v_Cantidad);
+            IF(errorStock) THEN
+                SELECT CONCAT('Error al reducir stock del producto con ID: ', v_idProducto);
+            END IF;
+        END LOOP lector;
+    CLOSE cursor1;
+END;
+
+-- En base a la cantidad de comentarios, y las estrellas asignadas, sacar el promedio y actualizar la tabla Producto.
+CREATE PROCEDURE ActualizarPromedioEstrellas(unID_Producto INT)
+BEGIN
+    DECLARE v_promedio FLOAT;
+
+    SELECT AVG(Estrellas) INTO v_promedio
+    FROM Comentario
+    WHERE ID_Producto = unID_Producto;
+
+    UPDATE Producto
+    SET PromedioEstrellas = v_promedio
+    WHERE ID_Producto = unID_Producto;
+END;
+
+-- Crear un procedimiento que calcule el tiempo pendiente de envío de un pedido.
+CREATE PROCEDURE TiempoPendienteEnvio(unID_Envio INT)
+BEGIN
+    SELECT DATEDIFF(Emision, CURDATE()) AS Dias_Pendientes, IF(E.Enviado IS NULL, 'No Enviado', 'Enviado') AS Estado, IF(E.Entregado IS NULL, 'En camino', 'Entregado') AS Estado_Entrega
+    FROM Envio E
+    JOIN Orden O ON E.ID_Orden = O.ID_Orden
+    WHERE E.ID_Envio = unID_Envio;
+END;
+``` 
