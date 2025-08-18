@@ -1,0 +1,128 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Dapper/TiendaOnline.Dapper.csproj": {}
+  },
+  "projects": {
+    "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/TiendaOnline.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/TiendaOnline.Core.csproj",
+        "projectName": "TiendaOnline.Core",
+        "projectPath": "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/TiendaOnline.Core.csproj",
+        "packagesPath": "/home/alumno/.nuget/packages/",
+        "outputPath": "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/alumno/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.117/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Dapper/TiendaOnline.Dapper.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Dapper/TiendaOnline.Dapper.csproj",
+        "projectName": "TiendaOnline.Dapper",
+        "projectPath": "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Dapper/TiendaOnline.Dapper.csproj",
+        "packagesPath": "/home/alumno/.nuget/packages/",
+        "outputPath": "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Dapper/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/alumno/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/TiendaOnline.Core.csproj": {
+                "projectPath": "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/TiendaOnline.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.1.35, )"
+            },
+            "MySqlConnector": {
+              "target": "Package",
+              "version": "[2.3.7, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.117/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

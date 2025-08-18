@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "qHFQPU3J95YF0noLc60InnuY5qO03PnON2OnMouIBdG/g0HCLqfAcbXdRILxcqJ18jcJaLwa86IbUTzc9oclEg==",
+  "success": true,
+  "projectFilePath": "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Dapper/TiendaOnline.Dapper.csproj",
+  "expectedPackageFiles": [
+    "/home/alumno/.nuget/packages/dapper/2.1.35/dapper.2.1.35.nupkg.sha512",
+    "/home/alumno/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.1/microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",
+    "/home/alumno/.nuget/packages/mysqlconnector/2.3.7/mysqlconnector.2.3.7.nupkg.sha512"
+  ],
+  "logs": []
+}
