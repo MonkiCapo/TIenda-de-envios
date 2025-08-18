@@ -9,5 +9,6 @@ namespace TiendaOnline.Core
     {
         public byte ID_Categoria { get; set; }
         public required string Nombre { get; set; }
+        public List<Producto> Productos { get; set; } = new List<Producto>();
     }
 }

@@ -8,6 +8,7 @@ namespace TiendaOnline.Core
     public interface IAdo
     {
         void AltaBancoDigital(BancoDigital bancoDigital);
+        IEnumerable<BancoDigital> ObtenerBancosDigitales();
         void AltaCategoria(Categoria categoria);
         IEnumerable<Categoria> ObtenerCategorias();
         void AltaCliente(Cliente cliente);
@@ -16,8 +17,6 @@ namespace TiendaOnline.Core
         void AltaCarrito(Carrito carrito);
         void AltaProductoCarrito(ProductoCarrito productoCarrito);
         
-        
-
         
         
     }
