@@ -194,19 +194,19 @@
     ]
   },
   "packageFolders": {
-    "/home/alumno/.nuget/packages/": {}
+    "/home/et12alumno/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Dapper/TiendaOnline.Dapper.csproj",
+      "projectUniqueName": "/home/et12alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Dapper/TiendaOnline.Dapper.csproj",
       "projectName": "TiendaOnline.Dapper",
-      "projectPath": "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Dapper/TiendaOnline.Dapper.csproj",
-      "packagesPath": "/home/alumno/.nuget/packages/",
-      "outputPath": "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Dapper/obj/",
+      "projectPath": "/home/et12alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Dapper/TiendaOnline.Dapper.csproj",
+      "packagesPath": "/home/et12alumno/.nuget/packages/",
+      "outputPath": "/home/et12alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Dapper/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/alumno/.nuget/NuGet/NuGet.Config"
+        "/home/et12alumno/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -218,8 +218,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/TiendaOnline.Core.csproj": {
-              "projectPath": "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/TiendaOnline.Core.csproj"
+            "/home/et12alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/TiendaOnline.Core.csproj": {
+              "projectPath": "/home/et12alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/TiendaOnline.Core.csproj"
             }
           }
         }
@@ -259,7 +259,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.117/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.115/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

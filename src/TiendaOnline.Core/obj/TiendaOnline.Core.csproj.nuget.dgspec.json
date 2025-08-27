@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/TiendaOnline.Core.csproj": {}
+    "/home/et12alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/TiendaOnline.Core.csproj": {}
   },
   "projects": {
-    "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/TiendaOnline.Core.csproj": {
+    "/home/et12alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/TiendaOnline.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/TiendaOnline.Core.csproj",
+        "projectUniqueName": "/home/et12alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/TiendaOnline.Core.csproj",
         "projectName": "TiendaOnline.Core",
-        "projectPath": "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/TiendaOnline.Core.csproj",
-        "packagesPath": "/home/alumno/.nuget/packages/",
-        "outputPath": "/home/alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/obj/",
+        "projectPath": "/home/et12alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/TiendaOnline.Core.csproj",
+        "packagesPath": "/home/et12alumno/.nuget/packages/",
+        "outputPath": "/home/et12alumno/Escritorio/TIenda-de-envios/src/TiendaOnline.Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/alumno/.nuget/NuGet/NuGet.Config"
+          "/home/et12alumno/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -53,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.117/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.115/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

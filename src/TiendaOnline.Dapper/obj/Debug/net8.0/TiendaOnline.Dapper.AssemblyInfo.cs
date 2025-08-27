@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TiendaOnline.Dapper")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+01dbfae44173d0889441513ac2e023af29707ca2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b6769e2a4db250ebbf36dbeebd9111f976232b40")]
 [assembly: System.Reflection.AssemblyProductAttribute("TiendaOnline.Dapper")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TiendaOnline.Dapper")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

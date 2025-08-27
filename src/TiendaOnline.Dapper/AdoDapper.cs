@@ -17,5 +17,9 @@ namespace TiendaOnline.Dapper
 
         #region BancoDigital
 
+            private static readonly string _query
+
+        #endregion
+
     }
 }
