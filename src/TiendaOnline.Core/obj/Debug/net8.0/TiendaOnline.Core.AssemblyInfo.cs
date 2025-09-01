@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TiendaOnline.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b6769e2a4db250ebbf36dbeebd9111f976232b40")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+096da5188356cf3d15ccff499c71c089ad37ad4e")]
 [assembly: System.Reflection.AssemblyProductAttribute("TiendaOnline.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TiendaOnline.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

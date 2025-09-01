@@ -253,7 +253,7 @@ BEGIN
     CALL CursorAftInsertOrden(new.ID_Carrito);
 
     SELECT ID_Billetera INTO @billetera
-    FROM Carrito
+    FROM Carrito                // Usa Dapper para ejecutar la consulta y mapear los resultados a la clase BancoDigital
     WHERE ID_Carrito = new.ID_Carrito;
 
     UPDATE Billetera
@@ -304,7 +304,7 @@ END;
 ```
 
 # Funciones almacenadas
-
+                // Usa Dapper para ejecutar la consulta y mapear los resultados a la clase BancoDigital
 ``` SQL
 -- Esta funcion me permite obtener el saldo de un cliente en su billetera.
 
