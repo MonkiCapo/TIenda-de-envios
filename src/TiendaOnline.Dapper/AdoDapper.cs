@@ -39,6 +39,7 @@ namespace TiendaOnline.Dapper
                 }
                 throw;
             }
+            
         }
         #endregion
 
@@ -192,11 +193,15 @@ namespace TiendaOnline.Dapper
             parametros.Add("@Cantidad", direction: parameterDirection.Output);
             try
             {
-                _conexion.Execute("")
+                _conexion.Execute("");
             }
             catch (MySqlException e)
             {
-
+                
+                if (e.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
+                {
+                    throw new ConstraintException("Ya se encuentra el producto en el historial");
+                }
             }
         }
         #endregion
