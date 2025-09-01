@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Dapper;
 using MySqlConnector;
@@ -16,8 +15,11 @@ namespace TiendaOnline.Dapper
         public AdoDapper(IDbConnection conexion) => this._conexion = conexion;
         public AdoDapper(string cadena) => _conexion = (new MySqlConnection(cadena));
 
+
+
+
+
         #region BancoDigital
-        #endregion
         public void AltaBancoDigital(BancoDigital bancoDigital)
         {
             var parametros = new DynamicParameters();
@@ -37,47 +39,68 @@ namespace TiendaOnline.Dapper
                 }
                 throw;
             }
-
-            IEnumerable<BancoDigital> ObtenerBancosDigitales()
-            {
-  
-                string query = "SELECT * FROM BancoDigital"; 
-
-                return _conexion.Query<BancoDigital>(query);
-            }
         }
-        public void AltaCliente(Cliente cliente)
-        {
+        #endregion
 
-        }
+        #region Billetera
         public void AltaBilletera(Billetera billetera)
         {
 
+            var parametros = new DynamicParameters();
+            parametros.Add("@unIDBilletera", direction: ParametersDirection.Output);
+            parametros.Add("@unIDCliente", billetera.ID_Cliente);
+            parametros.Add("@unID_BancoDigital", billetera.ID_BancoDigital);
+            parametros.Add("Saldo", billetera.Saldo);
+            try
+            {
+                _conexion.Execute("InsBilletera", parametros);
+                bancoDigital.ID_BancoDigital = parametros.Get<byte>("@unIDBilletera");
+            }
+            catch (MySqlException e)
+            {
+                if (e.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
+                {
+                    throw new ConstraintException("La billetera ya se encuentra instanciada. \n Duplica :" + billetera.ID_Billetera);
+                }
+                throw;
+            }
         }
-        public void AltaProducto(Producto producto)
-        {
+        #endregion
 
-        }
+        #region Carrito
         public void AltaCarrito(Carrito carrito)
         {
-
+            var parametros = new DynamicParameters();
+            parametros.Add("unID_Carrito", carrito.ID_Carrito);
+            parametros.Add("unID_Cliente", carrito.ID_Cliente);
+            parametros.Add("unID_Billetera", carrito.ID_Billetera);
+            try
+            {
+                _conexion.Execute("InsCarrito", parametros);
+            }
+            catch (MySqlConnection e)
+            {
+                if (e.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
+                {
+                    throw new ConstraintException("El carrito ID" + carrito.ID_Carrito + "ya se encuentra instanciado");
+                }
+            }
         }
-        public void AltaProductoCarrito(ProductoCarrito productoCarrito)
-        {
-
-        }
+        #endregion
 
         #region Categoria
 
         public void AltaCategoria(Categoria categoria)
         {
             var parametros = new DynamicParameters();
+            parametros.Add();
+            var parametros = new DynamicParameters();
             parametros.Add("@unIdCategoria", direction: ParameterDirection.Output);
             parametros.Add("@unCategoria", categoria.Nombre);
 
             try
             {
-                _conexion.Execute("AltaCategoria", parametros);
+                _conexion.Execute("InsCategoria", parametros);
 
                 categoria.ID_Categoria = parametros.Get<byte>("@unIdCategoria");
             }
@@ -90,35 +113,92 @@ namespace TiendaOnline.Dapper
                 throw;
             }
         }
+        #endregion
+        #region Comentario
+        public void AltaComentario()
+        {
+
+        }
+        #endregion
+
+        #region Envio
+        #endregion
+
+        #region Cliente
+        public void AltaCliente(Cliente cliente)
+        {
+
+        }
+        #endregion
+
+        #region Producto
+        public void AltaProducto(Producto producto)
+        {
+            var parametros = new dynamicParameters();
+            parametros.Add("@unID_Producto", direction: ParameterDirection.Output);
+            parametros.Add("@unID_Categoria", producto.ID_Categoria);
+            parametros.Add("@unNombre", producto.Nombre);
+            parametros.Add("@unDescripcion", producto.Descripcion);
+            parametros.Add("@unPrecio", producto.Precio);
+            parametros.Add("@unStock", producto.Stock);
+            parametros.Add("@Calificacion", producto.Calificacion);
+            try
+            {
+                _conexion.Execute("InsProducto", parametros);
+                producto.ID_Producto = parametros.Get<int>("@unID_Producto");
+            }
+            catch (MySqlException e)
+            {
+               if (e.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
+                {
+                    throw new ConstraintException("Ya se encuentra el producto");
+                }
+                throw; 
+            }
+        }
+        #endregion
+
+        #region ProductoCarrito
+        public void AltaProductoCarrito(ProductoCarrito productoCarrito)
+        {
+            var parametros = new DynamicParameters();
+            parametros.Add("@unID_Carrito", productoCarrito.ID_Carrito);
+            parametros.Add("@unID_Producto", productoCarrito.ID_Producto);
+            parametros.Add("@uncantidad", productoCarrito.cantidad);
+            try
+            {
+                _conexion.Execute("InsProductoCarrito", parametros);
+
+                categoria.ID_ProductoCarrito = parametros.Get<int>("@unID_ProductoCarrito");
+            }
+            catch (MySqlException e)
+            {
+                if (e.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
+                {
+                    throw new ConstraintException("Ya se encuentra duplicado");
+                }
+                throw;
+            }
+        }
+        #endregion
+
+
+        #region HistorialProducto
+        public void AltaHistorialProducto(HistorialProducto historialProducto)
+        {
+            var parametros = new dynamicParameters();
+            parametros.Add("@unID_Cliente", historialProducto.ID_Cliente);
+            parametros.Add("@un_Producto", historialProducto.ID_Producto);
+            parametros.Add("@Cantidad", direction: parameterDirection.Output);
+            try
+            {
+                _conexion.Execute("")
+            }
+            catch (MySqlException e)
+            {
+
+            }
+        }
+        #endregion
     }
-    #endregion
-
-    #region Cliente
-    #endregion
-
-    #region Billetera
-    #endregion
-
-    #region Carrito
-    #endregion
-
-    #region Comentario
-    #endregion
-
-    #region Envio
-    #endregion
-
-    #region Cliente
-    #endregion
-
-    #region Producto
-    #endregion
-
-    #region ProductoCarrito
-    #endregion
-
-
-    #region HistorialProducto
-    #endregion
-
-    }
+}
