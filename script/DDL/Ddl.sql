@@ -1,4 +1,9 @@
--- Active: 1691412339871@@127.0.0.1@3306@TiendaOnline
+DROP IF EXISTS DATABASE TiendaOnline;
+
+CREATE DATABASE TiendaOnline;
+
+USE TiendaOnline;
+
 CREATE TABLE Cliente (
     ID_Cliente INT UNSIGNED PRIMARY KEY,
     Nombre VARCHAR(45),
