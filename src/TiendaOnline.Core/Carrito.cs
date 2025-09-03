@@ -12,6 +12,5 @@ namespace TiendaOnline.Core
         public Billetera billetera { get; set; }
         public decimal total { get; set; }
         public bool Pagado { get; set; }
-        public DateTime Emision { get; set; }
     }
 }
